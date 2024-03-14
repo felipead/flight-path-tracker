@@ -2,6 +2,9 @@
 build:
 	@go build -o bin/flight-path-tracker cmd/main.go
 
+run:
+	@bin/flight-path-tracker
+
 .PHONY: clean
 clean:
 	@rm -rf ./bin

@@ -1,5 +1,71 @@
 # Flight Path Tracker
 
+## Instructions
+
+Install Go 1.22, and the Make tool. Then run:
+
+```shell
+$ make build
+$ make run
+```
+
+It will start the HTTP server on port 8080 on localhost.
+
+### Running tests
+
+```shell
+$ make test
+```
+
+### Running code linters
+
+```shell
+$ make lint
+```
+
+## API Specification
+
+### Definitions
+
+From [here](https://aviation.stackexchange.com/questions/14567/what-is-the-difference-between-slice-segment-and-leg):
+> A flight is defined by the IATA as the operation of one or more flight legs with the same flight designator. Unlike a flight segment, a flight may involve one or more aircraft. The IATA defines a leg as the operation of an aircraft from one scheduled departure station to its next scheduled arrival station. A flight segment can include one or more legs operated by a single aircraft with the same flight designator.
+
+### The `/calculate` endpoint
+
+This endpoint expects a JSON payload containing the list of flight legs that are part of a given flight itinerary.
+
+```
+POST /calculate
+
+Content-Type: application/json
+
+{
+    "flight_legs": [
+        ["IND", "EWR"], 
+        ["SFO", "ATL"], 
+        ["GSO", "IND"], 
+        ["ATL", "GSO"]
+    ]
+}
+
+200 OK
+
+{
+    "flight_origin_destination": ["SFO", "EWR"]
+}
+```
+
+Constraints:
+
+- At least one flight leg must be provided.
+- A leg must be declared as a list of two strings.
+
+### Errors
+
+The API will obey to the [HTTP response status code convention](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). More specifically, it will return:
+
+- `400 Bad Request` for malformed JSON payloads and invalid inputs
+
 ## Context
 
 ### Story
@@ -25,9 +91,3 @@ To create a simple microservice API that can help us understand and track how a 
 - Define and document the format of the API endpoint in the README.
 - Use Golang and/or any tools that you think will help you best accomplish the task at hand.
 - When you are done with the assignment, follow up and reply-all to the email that directed you to this document. Include your private github link and an estimate of how long you spent on the task and any interesting ideas you wish to share.
-
-## Setup
-
-## Instructions
-
-## API Specification
