@@ -2,11 +2,10 @@ package api
 
 import (
 	"encoding/json"
+	"github.com/VolumeFi/flight-path-tracker/pkg/model"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
 )
 
 func TestUnmarshalCalculateFlightPathRequest_ValidPayload(t *testing.T) {
@@ -25,20 +24,20 @@ func TestUnmarshalCalculateFlightPathRequest_ValidPayload(t *testing.T) {
 	assert.Equal(t, len(request.FlightLegs), 4)
 	assert.Equal(t, request.FlightLegs, []model.FlightLeg{
 		{
-			OriginCode:      "IND",
-			DestinationCode: "EWR",
+			Origin:      "IND",
+			Destination: "EWR",
 		},
 		{
-			OriginCode:      "SFO",
-			DestinationCode: "ATL",
+			Origin:      "SFO",
+			Destination: "ATL",
 		},
 		{
-			OriginCode:      "GSO",
-			DestinationCode: "IND",
+			Origin:      "GSO",
+			Destination: "IND",
 		},
 		{
-			OriginCode:      "ATL",
-			DestinationCode: "GSO",
+			Origin:      "ATL",
+			Destination: "GSO",
 		},
 	})
 }

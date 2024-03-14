@@ -51,7 +51,7 @@ Content-Type: application/json
 200 OK
 
 {
-    "flight_origin_destination": ["SFO", "EWR"]
+    "flight_start_end": ["SFO", "EWR"]
 }
 ```
 
@@ -59,6 +59,8 @@ Constraints:
 
 - At least one flight leg must be provided.
 - A leg must be declared as a list of two strings.
+
+### Validations
 
 ### Errors
 
