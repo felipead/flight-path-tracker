@@ -33,8 +33,6 @@ The folder `examples/` contains a list of sample HTTP requests using cURL. After
 $ make test
 ```
 
----
-
 ## API Specification
 
 ### Definitions
@@ -95,8 +93,6 @@ Errors should be returned using the following JSON structure:
     "message": "unable to unmarshal flight leg ..."
 }
 ```
-
----
 
 ## Solution Design
 
