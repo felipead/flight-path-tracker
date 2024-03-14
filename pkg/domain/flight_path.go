@@ -58,5 +58,9 @@ func FindFlightPathStartEnd(flightLegs []model.FlightLeg) (model.AirportCode, mo
 		}
 	}
 
+	if start == "" || end == "" {
+		return "", "", fmt.Errorf("invalid flight path - loop detected")
+	}
+
 	return start, end, nil
 }
