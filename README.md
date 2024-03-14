@@ -53,18 +53,36 @@ Content-Type: application/json
 }
 ```
 
-Constraints:
+#### Constraints and validations
 
 - At least one flight leg must be provided.
-- A leg must be declared as a list of two strings.
+- A flight leg must be declared as a list of two strings.
+- A flight leg cannot point to itself. The following will throw an error: `["JFK", "JFK"]`
+- No loops shall be present in the path. The implementation will raise an error if it detects any loops. We detect loops by checking the presence of multiple inbound or outbound flight legs for any given airport code.
 
-### Validations
+#### Security considerations
+
+For security reasons, we are not accepting or returning a JSON array in the HTTP request or response bodies. This is to avoid [JSON Hijacking](https://stackoverflow.com/questions/43717574/javascript-why-shouldnt-the-server-respond-with-a-json-array), a common exploit.
+
+Instead, we are using a JSON object, and the array is embedded as a property.
 
 ### Errors
 
 The API will obey to the [HTTP response status code convention](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). More specifically, it will return:
 
 - `400 Bad Request` for malformed JSON payloads and invalid inputs
+
+Errors should be returned using the following JSON structure:
+
+```json
+{
+    "error": true,
+    "retryable": false,
+    "message": "unable to unmarshal flight leg ..."
+}
+```
+
+---
 
 ## Context
 
