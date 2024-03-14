@@ -70,7 +70,7 @@ Content-Type: application/json
 - At least one flight leg must be provided.
 - A flight leg must be declared as a list of two strings.
 - A flight leg cannot point to itself. The following will throw an error: `["JFK", "JFK"]`
-- No loops shall be present in the path. The implementation will raise an error if it detects any loops. We detect loops by checking the presence of multiple inbound or outbound flight legs for any given airport code.
+- No loops or branches shall be present in the path. The implementation will raise an error if it detects any loops. We detect loops or branches by checking the presence of multiple inbound or outbound flight legs for any given airport code.
 
 #### Security considerations
 
