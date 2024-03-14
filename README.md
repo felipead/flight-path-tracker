@@ -135,13 +135,13 @@ O(|V| × |E])
 ```
 where `|V|` is the number of vertexes, or airport codes; `|E|` is the number of edges, or flight legs.
 
-### Finding the path
+### Finding the sorted flight path
 
 Once we have built the digraph and determined the start and end nodes, sorting the flight legs becomes a problem of finding a path between the start and end nodes.
 
-To accomplish that, we can leverage the [Dijkstra's_algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm), with a few simplifications: 
+To accomplish that, we can leverage the [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm), with a few simplifications: 
 - All edges have the same cost, i.e., there's no need to calculate the cost of a path.
-- We can assume that, for any given vertexes, there's going to be at most one inbound edge, and at most one outbound edge. 
+- We can assume that, for any given vertexes, there's going to be at most one inbound edge, and at most one outbound edge. That means only one path should exist for a valid input.
 
 The time complexity of Dijkstra's original algorithm is:
 ```
@@ -149,32 +149,4 @@ The time complexity of Dijkstra's original algorithm is:
 ```
 But that can be optimized if we use priority queues.
 
-Please note that finding the flight path was not part of the original requirements, and it was not implemented.
-
 ---
-
-## Context
-
-### Story
-
-There are over 100,000 flights a day, with millions of people and cargo being transferred around the world. With so many people and different carrier/agency groups, it can be hard to track where a person might be. In order to determine the flight path of a person, we must sort through all of their flight records.
-
-### Goal
-
-To create a simple microservice API that can help us understand and track how a particular person's flight path may be queried. The API should accept a request that includes a list of flights, which are defined by a source and destination airport code. These flights may not be listed in order and will need to be sorted to find the total flight paths starting and ending airports.
-
-### Required JSON structure
-
-```
-• [["SFO", "EWR"]]                                                 => ["SFO", "EWR"]
-• [["ATL", "EWR"], ["SFO", "ATL"]]                                 => ["SFO", "EWR"]
-• [["IND", "EWR"], ["SFO", "ATL"], ["GSO", "IND"], ["ATL", "GSO"]] => ["SFO", "EWR"]
-```
-
-### Specifications
-
-- Your microservice must listen on port 8080 and expose the flight path tracker under the `/calculate` endpoint.
-- Create a private GitHub repo and add https://github.com/taariq as a collaborator to the project. Please only add the collaborators when you are sure you are finished.
-- Define and document the format of the API endpoint in the README.
-- Use Golang and/or any tools that you think will help you best accomplish the task at hand.
-- When you are done with the assignment, follow up and reply-all to the email that directed you to this document. Include your private github link and an estimate of how long you spent on the task and any interesting ideas you wish to share.
