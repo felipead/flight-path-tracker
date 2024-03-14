@@ -11,6 +11,10 @@ $ make run
 
 It will start the HTTP server on port 8080 on localhost.
 
+### Examples
+
+The folder `examples/` contains a list of sample HTTP requests using cURL. After starting the server, feel free to execute those samples.
+
 ### Running tests
 
 ```shell
