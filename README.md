@@ -17,12 +17,6 @@ It will start the HTTP server on port 8080 on localhost.
 $ make test
 ```
 
-### Running code linters
-
-```shell
-$ make lint
-```
-
 ## API Specification
 
 ### Definitions
