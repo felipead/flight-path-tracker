@@ -15,7 +15,7 @@ func FindFlightPathStartEnd(flightLegs []model.FlightLeg) (model.AirportCode, mo
 	airports := make(map[model.AirportCode]bool)
 	for _, e := range flightLegs {
 		if e.Origin == e.Destination {
-			return "", "", fmt.Errorf("invalid flight path - a flight leg can't point to itself")
+			return "", "", errors.New("invalid flight path - a flight leg can't point to itself")
 		}
 
 		airports[e.Origin] = true
@@ -27,7 +27,8 @@ func FindFlightPathStartEnd(flightLegs []model.FlightLeg) (model.AirportCode, mo
 		for _, e := range flightLegs {
 			if e.Origin == v {
 				if outboundOf[v] != "" {
-					return "", "", fmt.Errorf("invalid flight path - found more than one outbound airports for %v", v)
+					return "", "", fmt.Errorf(
+						"invalid flight path - found more than one outbound airports for %v", v)
 				}
 				outboundOf[v] = e.Destination
 			}
@@ -39,7 +40,8 @@ func FindFlightPathStartEnd(flightLegs []model.FlightLeg) (model.AirportCode, mo
 		for _, e := range flightLegs {
 			if e.Destination == v {
 				if inboundOf[v] != "" {
-					return "", "", fmt.Errorf("invalid flight path - found more than one inbound airports for %v", v)
+					return "", "", fmt.Errorf(
+						"invalid flight path - found more than one inbound airports for %v", v)
 				}
 				inboundOf[v] = e.Origin
 			}
@@ -59,7 +61,7 @@ func FindFlightPathStartEnd(flightLegs []model.FlightLeg) (model.AirportCode, mo
 	}
 
 	if start == "" || end == "" {
-		return "", "", fmt.Errorf("invalid flight path - loop detected")
+		return "", "", errors.New("invalid flight path - loop detected")
 	}
 
 	return start, end, nil
