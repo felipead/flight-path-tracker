@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	@go build -o bin/flight-path-service cmd/main.go
+	@go build -o bin/flight-path-tracker cmd/main.go
 
 .PHONY: clean
 clean:
