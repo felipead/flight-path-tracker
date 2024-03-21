@@ -24,20 +24,20 @@ func TestUnmarshalCalculateFlightPathRequest_ValidPayload(t *testing.T) {
 	assert.Equal(t, len(request.FlightLegs), 4)
 	assert.Equal(t, request.FlightLegs, []model.FlightLeg{
 		{
-			Origin:      "IND",
-			Destination: "EWR",
+			Departure: "IND",
+			Arrival:   "EWR",
 		},
 		{
-			Origin:      "SFO",
-			Destination: "ATL",
+			Departure: "SFO",
+			Arrival:   "ATL",
 		},
 		{
-			Origin:      "GSO",
-			Destination: "IND",
+			Departure: "GSO",
+			Arrival:   "IND",
 		},
 		{
-			Origin:      "ATL",
-			Destination: "GSO",
+			Departure: "ATL",
+			Arrival:   "GSO",
 		},
 	})
 }

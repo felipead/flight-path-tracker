@@ -6,196 +6,197 @@ import (
 	"github.com/VolumeFi/flight-path-tracker/pkg/model"
 )
 
-func TestFindFlightPathStartEnd_Success(t *testing.T) {
+func TestCalculateFlightPath_Success(t *testing.T) {
 	tests := []struct {
-		name       string
-		flightLegs []model.FlightLeg
-		wantStart  model.AirportCode
-		wantEnd    model.AirportCode
+		name            string
+		flightLegs      []model.FlightLeg
+		wantOrigin      model.AirportCode
+		wantDestination model.AirportCode
 	}{
 		{
 			name: "given one flight leg",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "SFO",
-					Destination: "CNF",
+					Departure: "SFO",
+					Arrival:   "CNF",
 				},
 			},
-			wantStart: "SFO",
-			wantEnd:   "CNF",
+			wantOrigin:      "SFO",
+			wantDestination: "CNF",
 		},
 		{
 			name: "given two flight legs, sorted",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "SFO",
-					Destination: "CNF",
+					Departure: "SFO",
+					Arrival:   "CNF",
 				},
 				{
-					Origin:      "CNF",
-					Destination: "MIA",
+					Departure: "CNF",
+					Arrival:   "MIA",
 				},
 			},
-			wantStart: "SFO",
-			wantEnd:   "MIA",
+			wantOrigin:      "SFO",
+			wantDestination: "MIA",
 		},
 		{
 			name: "given two flight legs, unsorted",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "ATL",
-					Destination: "EWR",
+					Departure: "ATL",
+					Arrival:   "EWR",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "ATL",
+					Departure: "SFO",
+					Arrival:   "ATL",
 				},
 			},
-			wantStart: "SFO",
-			wantEnd:   "EWR",
+			wantOrigin:      "SFO",
+			wantDestination: "EWR",
 		},
 		{
 			name: "given a few unsorted flight legs, sample 1",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "IND",
-					Destination: "EWR",
+					Departure: "IND",
+					Arrival:   "EWR",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "ATL",
+					Departure: "SFO",
+					Arrival:   "ATL",
 				},
 				{
-					Origin:      "GSO",
-					Destination: "IND",
+					Departure: "GSO",
+					Arrival:   "IND",
 				},
 				{
-					Origin:      "ATL",
-					Destination: "GSO",
+					Departure: "ATL",
+					Arrival:   "GSO",
 				},
 			},
-			wantStart: "SFO",
-			wantEnd:   "EWR",
+			wantOrigin:      "SFO",
+			wantDestination: "EWR",
 		},
 		{
 			name: "given a few unsorted flight legs, sample 2",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 			},
-			wantStart: "CNF",
-			wantEnd:   "LHR",
+			wantOrigin:      "CNF",
+			wantDestination: "LHR",
 		},
 		{
 			name: "given a few sorted flight legs",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
-			wantStart: "CNF",
-			wantEnd:   "LHR",
+			wantOrigin:      "CNF",
+			wantDestination: "LHR",
 		},
 		{
 			name: "given a few reversely sorted flight legs",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 			},
-			wantStart: "CNF",
-			wantEnd:   "LHR",
+			wantOrigin:      "CNF",
+			wantDestination: "LHR",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotStart, gotEnd, err := FindFlightPathStartEnd(tt.flightLegs)
+			got, err := CalculateFlightPath(tt.flightLegs)
 			if err != nil {
-				t.Errorf("FindFlightPathStartEnd() error = %v", err)
+				t.Errorf("CalculateFlightPath() error = %v", err)
 				return
 			}
-			if gotStart != tt.wantStart {
-				t.Errorf("FindFlightPathStartEnd() gotStart = %v, wantStart = %v", gotStart, tt.wantStart)
+			if got.Origin != tt.wantOrigin {
+				t.Errorf("CalculateFlightPath() gotOrigin = %v, wantOrigin = %v", got.Origin, tt.wantOrigin)
 			}
-			if gotEnd != tt.wantEnd {
-				t.Errorf("FindFlightPathStartEnd() gotEnd = %v, wantEnd = %v", gotEnd, tt.wantEnd)
+			if got.Destination != tt.wantDestination {
+				t.Errorf("CalculateFlightPath() gotDestination = %v, wantDestination = %v",
+					got.Destination, tt.wantDestination)
 			}
 		})
 	}
@@ -216,8 +217,8 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when given a flight leg pointing to itself",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "SFO",
-					Destination: "SFO",
+					Departure: "SFO",
+					Arrival:   "SFO",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "from" and "to" are the same`,
@@ -226,36 +227,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when the flight path has an airport with more than one outbound legs (repeats)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
@@ -264,36 +265,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when the flight path has an airport with more than one outbound legs (branch)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "MIA",
+					Departure: "ORD",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
@@ -302,36 +303,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when the flight path has an airport with more than one outbound legs (loop)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "ORD",
+					Departure: "SFO",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
@@ -341,36 +342,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when the flight path has an airport with more than one inbound legs (branch)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "HND",
-					Destination: "SFO",
+					Departure: "HND",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
@@ -379,36 +380,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when the flight path has an airport with more than one inbound legs (loop)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "LHR",
-					Destination: "JFK",
+					Departure: "LHR",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
@@ -417,36 +418,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when there's no start or end (loop)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 				{
-					Origin:      "LHR",
-					Destination: "CNF",
+					Departure: "LHR",
+					Arrival:   "CNF",
 				},
 			},
 			wantError: `invalid flight path; unable to find start of path - there's a loop`,
@@ -455,36 +456,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when there's no start but there's an end (loop)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "CNF",
+					Departure: "YUL",
+					Arrival:   "CNF",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
@@ -493,36 +494,36 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 			name: "when there's no end but there's an start (loop)",
 			flightLegs: []model.FlightLeg{
 				{
-					Origin:      "CNF",
-					Destination: "GRU",
+					Departure: "CNF",
+					Arrival:   "GRU",
 				},
 				{
-					Origin:      "GRU",
-					Destination: "MIA",
+					Departure: "GRU",
+					Arrival:   "MIA",
 				},
 				{
-					Origin:      "MIA",
-					Destination: "ORD",
+					Departure: "MIA",
+					Arrival:   "ORD",
 				},
 				{
-					Origin:      "ORD",
-					Destination: "SFO",
+					Departure: "ORD",
+					Arrival:   "SFO",
 				},
 				{
-					Origin:      "SFO",
-					Destination: "YUL",
+					Departure: "SFO",
+					Arrival:   "YUL",
 				},
 				{
-					Origin:      "YUL",
-					Destination: "JFK",
+					Departure: "YUL",
+					Arrival:   "JFK",
 				},
 				{
-					Origin:      "JFK",
-					Destination: "LHR",
+					Departure: "JFK",
+					Arrival:   "LHR",
 				},
 				{
-					Origin:      "LHR",
-					Destination: "YUL",
+					Departure: "LHR",
+					Arrival:   "YUL",
 				},
 			},
 			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
@@ -531,13 +532,13 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			start, end, gotError := FindFlightPathStartEnd(tt.flightLegs)
+			flightPath, gotError := CalculateFlightPath(tt.flightLegs)
 			if gotError == nil {
-				t.Errorf("FindFlightPathStartEnd() did not fail, but an error was expected; start = %v, end = %v", start, end)
+				t.Errorf("CalculateFlightPath() did not fail, but an error was expected; path = %v", flightPath)
 				return
 			}
 			if gotError.Error() != tt.wantError {
-				t.Errorf("FindFlightPathStartEnd() gotError = %v, wantError = %v", gotError, tt.wantError)
+				t.Errorf("CalculateFlightPath() gotError = %v, wantError = %v", gotError, tt.wantError)
 			}
 		})
 	}

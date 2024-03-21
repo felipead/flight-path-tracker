@@ -10,8 +10,8 @@ import (
 func TestMarshalCalculateFlightPathResponse(t *testing.T) {
 	payload := CalculateFlightPathResponse{
 		FlightStartEnd: &model.FlightLeg{
-			Origin:      "SFO",
-			Destination: "EWR",
+			Departure: "SFO",
+			Arrival:   "EWR",
 		},
 	}
 

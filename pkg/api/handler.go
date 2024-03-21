@@ -15,7 +15,7 @@ func CalculateFlightPath(c *gin.Context) {
 		return
 	}
 
-	start, end, err := domain.FindFlightPathStartEnd(request.FlightLegs)
+	flightPath, err := domain.CalculateFlightPath(request.FlightLegs)
 	if err != nil {
 		c.AbortWithStatusJSON(400, NewErrorResponse(err))
 		return
@@ -23,8 +23,8 @@ func CalculateFlightPath(c *gin.Context) {
 
 	response := CalculateFlightPathResponse{
 		FlightStartEnd: &model.FlightLeg{
-			Origin:      start,
-			Destination: end,
+			Departure: flightPath.Origin,
+			Arrival:   flightPath.Destination,
 		},
 	}
 

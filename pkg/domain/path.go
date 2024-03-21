@@ -2,6 +2,7 @@ package domain
 
 import (
 	"errors"
+	"math"
 )
 
 // Path is a subset of Digraph, where for each point, or node, there can only exist at most one inbound connection, and
@@ -73,4 +74,13 @@ func (p *Path[T]) FindEnd() (T, error) {
 
 func (p *Path[T]) GetNext(a T) T {
 	return p.outboundOf[a]
+}
+
+func (p *Path[T]) Length() int {
+	return int(
+		math.Max(
+			float64(len(p.inboundOf)),
+			float64(len(p.outboundOf)),
+		),
+	)
 }
