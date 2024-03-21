@@ -220,7 +220,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "SFO",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "from" and "to" are the same`,
+			wantError: `invalid flight path; invalid connection - "from" and "to" are the same`,
 		},
 		{
 			name: "when the flight path has an airport with more than one outbound legs (repeats)",
@@ -258,7 +258,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "LHR",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "from" already has an outbound connection`,
+			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
 		},
 		{
 			name: "when the flight path has an airport with more than one outbound legs (branch)",
@@ -296,7 +296,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "LHR",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "from" already has an outbound connection`,
+			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
 		},
 		{
 			name: "when the flight path has an airport with more than one outbound legs (loop)",
@@ -334,7 +334,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "LHR",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "from" already has an outbound connection`,
+			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
 		},
 		{
 
@@ -373,7 +373,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "LHR",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "to" already has an inbound connection`,
+			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
 		},
 		{
 			name: "when the flight path has an airport with more than one inbound legs (loop)",
@@ -411,7 +411,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "LHR",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "to" already has an inbound connection`,
+			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
 		},
 		{
 			name: "when there's no start or end (loop)",
@@ -487,7 +487,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "CNF",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "from" already has an outbound connection`,
+			wantError: `invalid flight path; invalid connection - "from" already has an outbound connection`,
 		},
 		{
 			name: "when there's no end but there's an start (loop)",
@@ -525,7 +525,7 @@ func TestFindFlightPathStartEnd_Error(t *testing.T) {
 					Destination: "YUL",
 				},
 			},
-			wantError: `invalid flight path; unable to add connection - "to" already has an inbound connection`,
+			wantError: `invalid flight path; invalid connection - "to" already has an inbound connection`,
 		},
 	}
 

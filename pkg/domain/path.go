@@ -25,17 +25,17 @@ func NewPath[T comparable]() *Path[T] {
 
 func (p *Path[T]) AddConnection(from, to T) error {
 	if from == to {
-		return errors.New(`unable to add connection - "from" and "to" are the same`)
+		return errors.New(`invalid connection - "from" and "to" are the same`)
 	}
 
 	var nullValue T
 
-	if p.outboundOf[from] != nullValue {
-		return errors.New(`unable to add connection - "from" already has an outbound connection`)
+	if outbound := p.outboundOf[from]; outbound != nullValue {
+		return errors.New(`invalid connection - "from" already has an outbound connection`)
 	}
 
 	if p.inboundOf[to] != nullValue {
-		return errors.New(`unable to add connection - "to" already has an inbound connection`)
+		return errors.New(`invalid connection - "to" already has an inbound connection`)
 	}
 
 	p.points[from] = true

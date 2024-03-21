@@ -9,7 +9,7 @@ import (
 func TestPath_AddConnection_FailsIfPointsAreTheSame(t *testing.T) {
 	p := NewPath[string]()
 	err := p.AddConnection("foo", "foo")
-	assert.EqualError(t, err, `unable to add connection - "from" and "to" are the same`)
+	assert.EqualError(t, err, `invalid connection - "from" and "to" are the same`)
 }
 
 func TestPath_AddConnection_FailsIfFromAlreadyHasAnOutboundConnection(t *testing.T) {
@@ -20,7 +20,7 @@ func TestPath_AddConnection_FailsIfFromAlreadyHasAnOutboundConnection(t *testing
 
 	err = p.AddConnection("foo", "baz")
 
-	assert.EqualError(t, err, `unable to add connection - "from" already has an outbound connection`)
+	assert.EqualError(t, err, `invalid connection - "from" already has an outbound connection`)
 }
 
 func TestPath_AddConnection_FailsIfToAlreadyHasAnInboundConnection(t *testing.T) {
@@ -31,7 +31,7 @@ func TestPath_AddConnection_FailsIfToAlreadyHasAnInboundConnection(t *testing.T)
 
 	err = p.AddConnection("baz", "bar")
 
-	assert.EqualError(t, err, `unable to add connection - "to" already has an inbound connection`)
+	assert.EqualError(t, err, `invalid connection - "to" already has an inbound connection`)
 }
 
 func TestPath_AddConnection_FailsIfAddingTheSameConnectionTwice(t *testing.T) {
@@ -42,7 +42,7 @@ func TestPath_AddConnection_FailsIfAddingTheSameConnectionTwice(t *testing.T) {
 
 	err = p.AddConnection("foo", "bar")
 
-	assert.EqualError(t, err, `unable to add connection - "from" already has an outbound connection`)
+	assert.EqualError(t, err, `invalid connection - "from" already has an outbound connection`)
 }
 
 func TestPath_FindStart(t *testing.T) {
