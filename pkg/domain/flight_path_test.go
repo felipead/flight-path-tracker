@@ -3,6 +3,8 @@ package domain
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
@@ -12,6 +14,7 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 		flightLegs      []model.FlightLeg
 		wantOrigin      model.AirportCode
 		wantDestination model.AirportCode
+		wantSortedLegs  []model.FlightLeg
 	}{
 		{
 			name: "given one flight leg",
@@ -23,6 +26,9 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "SFO",
 			wantDestination: "CNF",
+			wantSortedLegs: []model.FlightLeg{
+				{"SFO", "CNF"},
+			},
 		},
 		{
 			name: "given two flight legs, sorted",
@@ -38,6 +44,10 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "SFO",
 			wantDestination: "MIA",
+			wantSortedLegs: []model.FlightLeg{
+				{"SFO", "CNF"},
+				{"CNF", "MIA"},
+			},
 		},
 		{
 			name: "given two flight legs, unsorted",
@@ -53,6 +63,10 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "SFO",
 			wantDestination: "EWR",
+			wantSortedLegs: []model.FlightLeg{
+				{"SFO", "ATL"},
+				{"ATL", "EWR"},
+			},
 		},
 		{
 			name: "given a few unsorted flight legs, sample 1",
@@ -76,6 +90,12 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "SFO",
 			wantDestination: "EWR",
+			wantSortedLegs: []model.FlightLeg{
+				{"SFO", "ATL"},
+				{"ATL", "GSO"},
+				{"GSO", "IND"},
+				{"IND", "EWR"},
+			},
 		},
 		{
 			name: "given a few unsorted flight legs, sample 2",
@@ -111,6 +131,15 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "CNF",
 			wantDestination: "LHR",
+			wantSortedLegs: []model.FlightLeg{
+				{"CNF", "GRU"},
+				{"GRU", "MIA"},
+				{"MIA", "ORD"},
+				{"ORD", "SFO"},
+				{"SFO", "YUL"},
+				{"YUL", "JFK"},
+				{"JFK", "LHR"},
+			},
 		},
 		{
 			name: "given a few sorted flight legs",
@@ -146,6 +175,15 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "CNF",
 			wantDestination: "LHR",
+			wantSortedLegs: []model.FlightLeg{
+				{"CNF", "GRU"},
+				{"GRU", "MIA"},
+				{"MIA", "ORD"},
+				{"ORD", "SFO"},
+				{"SFO", "YUL"},
+				{"YUL", "JFK"},
+				{"JFK", "LHR"},
+			},
 		},
 		{
 			name: "given a few reversely sorted flight legs",
@@ -181,23 +219,26 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			},
 			wantOrigin:      "CNF",
 			wantDestination: "LHR",
+			wantSortedLegs: []model.FlightLeg{
+				{"CNF", "GRU"},
+				{"GRU", "MIA"},
+				{"MIA", "ORD"},
+				{"ORD", "SFO"},
+				{"SFO", "YUL"},
+				{"YUL", "JFK"},
+				{"JFK", "LHR"},
+			},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CalculateFlightPath(tt.flightLegs)
-			if err != nil {
-				t.Errorf("CalculateFlightPath() error = %v", err)
-				return
-			}
-			if got.Origin != tt.wantOrigin {
-				t.Errorf("CalculateFlightPath() gotOrigin = %v, wantOrigin = %v", got.Origin, tt.wantOrigin)
-			}
-			if got.Destination != tt.wantDestination {
-				t.Errorf("CalculateFlightPath() gotDestination = %v, wantDestination = %v",
-					got.Destination, tt.wantDestination)
-			}
+			assert.NoError(t, err)
+			assert.NotNil(t, got)
+			assert.Equal(t, got.Origin, tt.wantOrigin)
+			assert.Equal(t, got.Destination, tt.wantDestination)
+			assert.Equal(t, got.Legs, tt.wantSortedLegs)
 		})
 	}
 }
