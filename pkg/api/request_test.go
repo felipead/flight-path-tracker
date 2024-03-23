@@ -2,10 +2,11 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/VolumeFi/flight-path-tracker/pkg/model"
 )
 
 func TestUnmarshalCalculateFlightPathRequest_ValidPayload(t *testing.T) {
