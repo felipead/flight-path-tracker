@@ -3,7 +3,7 @@ package domain
 import (
 	"testing"
 
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
+	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 func TestCalculateFlightPath_Success(t *testing.T) {

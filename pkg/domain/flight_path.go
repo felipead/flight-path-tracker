@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
+	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 func CalculateFlightPath(flightLegs []model.FlightLeg) (*model.FlightPath, error) {

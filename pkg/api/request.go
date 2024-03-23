@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
+	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 type CalculateFlightPathRequest struct {

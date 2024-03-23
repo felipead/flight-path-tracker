@@ -3,8 +3,8 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/VolumeFi/flight-path-tracker/pkg/domain"
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
+	"github.com/felipead/flight-path-tracker/pkg/domain"
+	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 func CalculateFlightPath(c *gin.Context) {

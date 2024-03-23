@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/VolumeFi/flight-path-tracker/pkg/api"
+	"github.com/felipead/flight-path-tracker/pkg/api"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/VolumeFi/flight-path-tracker
+module github.com/felipead/flight-path-tracker
 
 go 1.22.0
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/VolumeFi/flight-path-tracker/pkg/model"
+	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 func TestUnmarshalCalculateFlightPathRequest_ValidPayload(t *testing.T) {
