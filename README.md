@@ -111,16 +111,15 @@ Errors should be returned using the following JSON structure:
 - [ ] Add `context.WithTimeout` and check if the context was canceled during the path calculation to avoid unnecessary work.
 - [ ] Persist the `FlightPath` entity in a relational database, along with the flight legs. Each airport code could be a unique entry in an `airports` table.
 
-
 ## Solution Design
 
-If we are only concerned about finding the *start* (the origin) and *end* (the final destination) airport codes, a simple solution can be devised.
+If we are only concerned about finding the _start_ (or origin); and the _end_ (or destination) airport codes, a simple solution can be devised.
 
 We are going to model the problem as a [directed graph](https://en.wikipedia.org/wiki/Directed_graph), or *digraph*, where:
 
-- Airport codes are the vertexes
-- Flight legs are the edges
-- The direction of a flight leg is the direction of the corresponding edge
+- Airport codes are the vertex, or points.
+- Flight legs are the edges, or connections.
+- The direction of a flight leg is the direction of the corresponding edge.
 
 That way, the problem input:
 
@@ -138,12 +137,12 @@ Can be represented as:
 
 ![Digraph 1](doc/digraph-1.png)
 
-Once this structure is built, then finding the start and end airport codes is a trivial task:
+Once this data structure is built, finding the start and end airport codes is then a trivial task:
 
-- The *start* is the vertex that has no _inbound_ edge in the digraph
-- Similarly, the *end* is the vertex that has no _outbound_ edge in the digraph
+- The _start_ is the vertex that has no _inbound_ edge in the digraph
+- Similarly, the _end_ is the vertex that has no _outbound_ edge in the digraph
 
-This has a time complexity of:
+Computing the digraph has a time complexity of:
 ```
 O(|V| × |E])
 ```
@@ -151,16 +150,12 @@ where `|V|` is the number of vertexes, or airport codes; `|E|` is the number of 
 
 ### Finding the sorted flight path
 
-Once we have built the digraph and determined the start and end nodes, sorting the flight legs becomes a problem of finding a path between the start and end nodes.
+Once we have built the digraph and determined the _start_ and _end_ nodes, sorting the flight legs becomes a problem of finding a path between the start and end nodes.
 
-To accomplish that, we can leverage the [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm), with a few simplifications: 
-- All edges have the same cost, i.e., there's no need to calculate the cost of a path.
-- We can assume that, for any given vertexes, there's going to be at most one inbound edge, and at most one outbound edge. That means only one path should exist for a valid input.
+For a given valid input, each node can have at most one inbound connection, and at most one outbound connection. We start with the _start_ node, then find an outbound connection to the next node, until we reach the _end_. 
 
-The time complexity of Dijkstra's original algorithm is:
+Assuming the inbound and outbound nodes have already being calculated, this has a time complexity of:
+
 ```
-Θ(|V|²)
+O(|E|)
 ```
-But that can be optimized if we use priority queues.
-
----
