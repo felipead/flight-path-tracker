@@ -123,13 +123,13 @@ We are going to model the problem as a [directed graph](https://en.wikipedia.org
 That way, the problem input:
 
 ```
-["CNF", "GRU"],
-["GRU", "MIA"],
-["YUL", "JFK"],
-["MIA", "ORD"],
-["JFK", "LHR"],
-["SFO", "YUL"],
-["ORD", "SFO"]
+{CNF, GRU},
+{GRU, MIA},
+{YUL, JFK},
+{MIA, ORD},
+{JFK, LHR},
+{SFO, YUL},
+{ORD, SFO}
 ```
 
 Can be represented as:
