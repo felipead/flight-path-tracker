@@ -2,10 +2,13 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 
 	"github.com/felipead/flight-path-tracker/pkg/domain"
 	"github.com/felipead/flight-path-tracker/pkg/validator"
 )
+
+var log = logrus.New()
 
 func CalculateFlightPath(c *gin.Context) {
 	var request CalculateFlightPathRequest
@@ -20,6 +23,10 @@ func CalculateFlightPath(c *gin.Context) {
 		c.AbortWithStatusJSON(400, NewErrorResponse(err))
 		return
 	}
+
+	log.WithFields(logrus.Fields{
+		"FlightLegs": request.FlightLegs,
+	}).Info("Calculating flight path")
 
 	flightPath, err := domain.CalculateFlightPath(request.FlightLegs)
 	if err != nil {
