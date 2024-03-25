@@ -63,16 +63,14 @@ Content-Type: application/json
 200 OK
 
 {
-    "flight_path": {
-        "origin": "SFO",
-        "destination": "EWR",
-        "legs": [
-            ["SFO", "ATL"],
-            ["ATL", "GSO"],
-            ["GSO", "IND"],
-            ["IND", "EWR"]
-        ]
-    }
+    "origin": "SFO",
+    "destination": "EWR",
+    "flight_legs": [
+        ["SFO", "ATL"],
+        ["ATL", "GSO"],
+        ["GSO", "IND"],
+        ["IND", "EWR"]
+    ]
 }
 ```
 
