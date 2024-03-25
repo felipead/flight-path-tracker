@@ -6,8 +6,8 @@ import (
 )
 
 type FlightLeg struct {
-	Departure AirportCode
-	Arrival   AirportCode
+	Departure AirportCode `validate:"required,airport_code"`
+	Arrival   AirportCode `validate:"required,airport_code"`
 }
 
 func (leg *FlightLeg) UnmarshalJSON(data []byte) error {

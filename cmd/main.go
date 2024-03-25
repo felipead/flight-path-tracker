@@ -9,13 +9,15 @@ import (
 )
 
 func main() {
-	router := gin.Default()
+	if err := api.Init(); err != nil {
+		log.Panic(err)
+	}
 
+	router := gin.Default()
 	router.POST("/calculate", api.CalculateFlightPath)
 
 	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	err := router.Run()
-	if err != nil {
+	if err := router.Run(); err != nil {
 		log.Fatal(err)
 	}
 }

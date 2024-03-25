@@ -5,5 +5,5 @@ import (
 )
 
 type CalculateFlightPathRequest struct {
-	FlightLegs []model.FlightLeg `json:"flight_legs"`
+	FlightLegs []model.FlightLeg `json:"flight_legs" validate:"required,notblank,dive"`
 }
