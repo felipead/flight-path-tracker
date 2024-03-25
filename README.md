@@ -117,7 +117,7 @@ If we are only concerned about finding the _start_ (or origin); and the _end_ (o
 
 We are going to model the problem as a [directed graph](https://en.wikipedia.org/wiki/Directed_graph), or *digraph*, where:
 
-- Airport codes are the vertexes, or nodes.
+- Airport codes are the vertexes, or points.
 - Flight legs are the edges, or connections.
 - The direction of a flight leg is the direction of the corresponding edge.
 
@@ -150,11 +150,11 @@ where `|V|` is the number of vertexes, or airport codes; `|E|` is the number of 
 
 ### Finding the sorted flight path
 
-Once we have built the digraph and determined the _start_ and _end_ nodes, sorting the flight legs becomes a problem of finding a path between the start and end nodes.
+Once we have built the digraph and determined the _start_ and _end_ vertexes, sorting the flight legs becomes a problem of finding a path between the _start_ and _end_ vertexes, or points.
 
-For a given valid input, each node can have at most one inbound connection, and at most one outbound connection. We start with the _start_ node, then find an outbound connection to the next node, until we reach the _end_. 
+For a given valid input, each vertex can have at most one inbound edge, and at most one outbound edge. We start with the _start_ point, then find an outbound connection to the next point, until we reach the _end_. 
 
-Assuming the inbound and outbound nodes have already being calculated, this has a time complexity of:
+Assuming the inbound and outbound connections have already being calculated, this exercise has a time complexity of:
 
 ```
 O(|E|)

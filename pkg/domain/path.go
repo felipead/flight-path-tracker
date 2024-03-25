@@ -5,8 +5,8 @@ import (
 	"math"
 )
 
-// Path is a subset of Digraph, where for each point, or node, there can only exist at most one inbound connection, and
-// at most one outbound connection.
+// Path is a subset of Digraph, where for each vertex, or point, there can only exist at most one inbound edge,
+// or connection; and at most one outbound connection.
 //
 // All points in the path must be connected to form one path, i.e., there should exist no partitions. Also, there
 // should exist no cycles or branches in the path.
