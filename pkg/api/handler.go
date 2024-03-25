@@ -20,9 +20,5 @@ func CalculateFlightPath(c *gin.Context) {
 		return
 	}
 
-	response := CalculateFlightPathResponse{
-		FlightPath: flightPath,
-	}
-
-	c.JSON(200, response)
+	c.JSON(200, flightPath)
 }

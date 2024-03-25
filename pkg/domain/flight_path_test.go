@@ -238,7 +238,7 @@ func TestCalculateFlightPath_Success(t *testing.T) {
 			assert.NotNil(t, got)
 			assert.Equal(t, got.Origin, tt.wantOrigin)
 			assert.Equal(t, got.Destination, tt.wantDestination)
-			assert.Equal(t, got.Legs, tt.wantSortedLegs)
+			assert.Equal(t, got.FlightLegs, tt.wantSortedLegs)
 		})
 	}
 }

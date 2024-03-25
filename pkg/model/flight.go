@@ -42,9 +42,3 @@ func (leg *FlightLeg) MarshalJSON() ([]byte, error) {
 		string(leg.Arrival),
 	})
 }
-
-type FlightPath struct {
-	Origin      AirportCode `json:"origin"`
-	Destination AirportCode `json:"destination"`
-	Legs        []FlightLeg `json:"legs"`
-}

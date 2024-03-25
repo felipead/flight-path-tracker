@@ -39,7 +39,7 @@ func CalculateFlightPath(flightLegs []model.FlightLeg) (*model.FlightPath, error
 	return &model.FlightPath{
 		Origin:      start,
 		Destination: end,
-		Legs:        sortedLegs,
+		FlightLegs:  sortedLegs,
 	}, nil
 }
 
