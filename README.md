@@ -40,14 +40,14 @@ $ make test
 Flight Leg ([source](https://aviation.stackexchange.com/questions/14567/what-is-the-difference-between-slice-segment-and-leg)):
 > A flight is defined by the IATA as the operation of one or more flight legs with the same flight designator. Unlike a flight segment, a flight may involve one or more aircraft. The IATA defines a leg as the operation of an aircraft from one scheduled departure station to its next scheduled arrival station. A flight segment can include one or more legs operated by a single aircraft with the same flight designator.
 
-### The `/calculate` endpoint
+### Calculate a flight path - `POST /flight_paths`
 
 This endpoint expects a JSON payload containing the list of flight legs that are part of a given flight itinerary.
 
 It will return a flight path object, listing the origin and destination airports, and a **sorted** list of flight legs, as shown below.
 
 ```
-POST /calculate
+POST /flight_paths
 
 Content-Type: application/json
 

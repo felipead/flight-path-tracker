@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -0 -v -X POST http://localhost:8080/calculate \
+curl -0 -v -X POST http://localhost:8080/flight_paths \
 -H "Expect:" \
 -H 'Content-Type: application/json' \
 --data-binary @- << EOF

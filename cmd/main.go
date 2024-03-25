@@ -14,7 +14,7 @@ func main() {
 	}
 
 	router := gin.Default()
-	router.POST("/calculate", api.CalculateFlightPath)
+	router.POST("/flight_paths", api.CalculateFlightPath)
 
 	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 	if err := router.Run(); err != nil {
