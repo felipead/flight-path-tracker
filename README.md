@@ -105,9 +105,12 @@ Errors should be returned using the following JSON structure:
 
 ## TODO & Roadmap
 
+- [ ] Validate if the airport code is not empty. In fact, giving an empty airport code could make the flight path calculation loop forever. The server is susceptible to DoS attacks.
+- [ ] Validate if the airport code is 3-letters per the IATA airport code specification
 - [ ] Add logging.
 - [ ] Add `context.WithTimeout` and check if the context was canceled during the path calculation to avoid unnecessary work.
 - [ ] Persist the `FlightPath` entity in a relational database, along with the flight legs. Each airport code could be a unique entry in an `airports` table.
+
 
 ## Solution Design
 
