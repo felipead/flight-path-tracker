@@ -117,7 +117,7 @@ If we are only concerned about finding the _start_ (or origin); and the _end_ (o
 
 We are going to model the problem as a [directed graph](https://en.wikipedia.org/wiki/Directed_graph), or *digraph*, where:
 
-- Airport codes are the vertex, or points.
+- Airport codes are the vertexes, or nodes.
 - Flight legs are the edges, or connections.
 - The direction of a flight leg is the direction of the corresponding edge.
 
