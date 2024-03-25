@@ -79,6 +79,8 @@ Content-Type: application/json
 - At least one flight leg must be provided.
 - A flight leg must be declared as a list of two strings.
 - A flight leg cannot point to itself. The following will throw an error: `["JFK", "JFK"]`
+- The airport code cannot be empty.
+- The airport code must be a 3-letter [IATA airport code](https://en.wikipedia.org/wiki/IATA_airport_code).
 - No loops or branches shall be present in the path. The implementation will raise an error if it detects any loops. We detect loops or branches by checking the presence of multiple inbound or outbound flight legs for any given airport code.
 
 #### Security considerations
@@ -105,8 +107,6 @@ Errors should be returned using the following JSON structure:
 
 ## TODO & Roadmap
 
-- [ ] Validate if the airport code is not empty. In fact, giving an empty airport code could make the flight path calculation loop forever. The server is susceptible to DoS attacks.
-- [ ] Validate if the airport code is 3-letters per the IATA airport code specification
 - [ ] Add logging.
 - [ ] Add `context.WithTimeout` and check if the context was canceled during the path calculation to avoid unnecessary work.
 - [ ] Persist the `FlightPath` entity in a relational database, along with the flight legs. Each airport code could be a unique entry in an `airports` table.
