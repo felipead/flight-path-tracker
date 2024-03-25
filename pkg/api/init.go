@@ -5,7 +5,6 @@ import (
 )
 
 // Init is supposed to be called before the server starts serving API requests
-func Init() (err error) {
-	err = validator.InitValidator()
-	return
+func Init() error {
+	return validator.InitValidator()
 }
