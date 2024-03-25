@@ -44,6 +44,8 @@ Flight Leg ([source](https://aviation.stackexchange.com/questions/14567/what-is-
 
 This endpoint expects a JSON payload containing the list of flight legs that are part of a given flight itinerary.
 
+It will return a flight path object, listing the origin and destination airports, and a **sorted** list of flight legs, as shown below.
+
 ```
 POST /calculate
 
@@ -61,7 +63,16 @@ Content-Type: application/json
 200 OK
 
 {
-    "flight_start_end": ["SFO", "EWR"]
+    "flight_path": {
+        "origin": "SFO",
+        "destination": "EWR",
+        "legs": [
+            ["SFO", "ATL"],
+            ["ATL", "GSO"],
+            ["GSO", "IND"],
+            ["IND", "EWR"]
+        ]
+    }
 }
 ```
 
