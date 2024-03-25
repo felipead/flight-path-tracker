@@ -103,6 +103,12 @@ Errors should be returned using the following JSON structure:
 }
 ```
 
+## TODO & Roadmap
+
+- [ ] Add logging.
+- [ ] Add `context.WithTimeout` and check if the context was canceled during the path calculation to avoid unnecessary work.
+- [ ] Persist the `FlightPath` entity in a relational database, along with the flight legs. Each airport code could be a unique entry in an `airports` table.
+
 ## Solution Design
 
 If we are only concerned about finding the *start* (the origin) and *end* (the final destination) airport codes, a simple solution can be devised.
