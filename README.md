@@ -7,9 +7,9 @@ The goal is to create a simple API that can help us understand and track how a p
 For example:
 
 ```
-• [["SFO", "EWR"]]                                                 → ["SFO", "EWR"]
-• [["ATL", "EWR"], ["SFO", "ATL"]]                                 → ["SFO", "EWR"]
-• [["IND", "EWR"], ["SFO", "ATL"], ["GSO", "IND"], ["ATL", "GSO"]] → ["SFO", "EWR"]
+• {SFO, EWR}                                      →  {SFO, EWR}
+• {ATL, EWR}, {SFO, ATL}                          →  {SFO, EWR}
+• {IND, EWR}, {SFO, ATL}, {GSO, IND}, {ATL, GSO}  →  {SFO, EWR}
 ```
 
 ## Instructions
