@@ -76,11 +76,18 @@ func (p *Path[T]) GetNext(a T) T {
 	return p.outboundOf[a]
 }
 
+// Length is the number of connections in this path. For example, given the path:
+//
+//	(a → b)
+//	(b → c)
+//	(c → d)
+//	(d → e)
+//	(e → f)
+//
+// The length is going to be 5.
 func (p *Path[T]) Length() int {
-	return int(
-		math.Max(
-			float64(len(p.inboundOf)),
-			float64(len(p.outboundOf)),
-		),
-	)
+	return int(math.Max(
+		float64(len(p.inboundOf)),
+		float64(len(p.outboundOf)),
+	))
 }

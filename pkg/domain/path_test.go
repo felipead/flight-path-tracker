@@ -119,3 +119,21 @@ func TestPath_NavigateThePath(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, end, "f")
 }
+
+func TestPath_Length(t *testing.T) {
+	p := NewPath[string]()
+
+	assert.NoError(t, p.AddConnection("a", "b"))
+	assert.NoError(t, p.AddConnection("b", "c"))
+	assert.NoError(t, p.AddConnection("c", "d"))
+	assert.NoError(t, p.AddConnection("d", "e"))
+	assert.NoError(t, p.AddConnection("e", "f"))
+
+	assert.Equal(t, p.Length(), 5)
+}
+
+func TestPath_LengthWhenEmpty(t *testing.T) {
+	p := NewPath[string]()
+
+	assert.Equal(t, p.Length(), 0)
+}
