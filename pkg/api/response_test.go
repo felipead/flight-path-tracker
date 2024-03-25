@@ -11,13 +11,22 @@ import (
 
 func TestMarshalCalculateFlightPathResponse(t *testing.T) {
 	payload := CalculateFlightPathResponse{
-		FlightStartEnd: &model.FlightLeg{
-			Departure: "SFO",
-			Arrival:   "EWR",
+		FlightPath: &model.FlightPath{
+			Origin:      "SFO",
+			Destination: "EWR",
+			Legs: []model.FlightLeg{
+				{"SFO", "ATL"},
+				{"ATL", "GSO"},
+				{"GSO", "IND"},
+				{"IND", "EWR"},
+			},
 		},
 	}
 
 	jsonData, err := json.Marshal(payload)
 	assert.NoError(t, err)
-	assert.Equal(t, string(jsonData), "{\"flight_start_end\":[\"SFO\",\"EWR\"]}")
+	assert.Equal(t, string(jsonData),
+		`{"flight_path":{"origin":"SFO","destination":"EWR",`+
+			`"legs":[["SFO","ATL"],["ATL","GSO"],["GSO","IND"],["IND","EWR"]]}}`,
+	)
 }

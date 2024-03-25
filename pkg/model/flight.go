@@ -5,17 +5,9 @@ import (
 	"fmt"
 )
 
-type AirportCode string
-
 type FlightLeg struct {
 	Departure AirportCode
 	Arrival   AirportCode
-}
-
-type FlightPath struct {
-	Origin      AirportCode `json:"origin"`
-	Destination AirportCode `json:"destination"`
-	Legs        []FlightLeg `json:"legs"`
 }
 
 func (leg *FlightLeg) UnmarshalJSON(data []byte) error {
@@ -29,17 +21,17 @@ func (leg *FlightLeg) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	var origin, destination string
+	var departure, arrival string
 
-	if origin, ok = v[0].(string); !ok {
-		return fmt.Errorf("unable to unmarshal flight leg: origin code is not a string")
+	if departure, ok = v[0].(string); !ok {
+		return fmt.Errorf("unable to unmarshal flight leg: departure code is not a string")
 	}
-	if destination, ok = v[1].(string); !ok {
-		return fmt.Errorf("unable to unmarshal flight leg: destination code is not a string")
+	if arrival, ok = v[1].(string); !ok {
+		return fmt.Errorf("unable to unmarshal flight leg: arrival code is not a string")
 	}
 
-	leg.Departure = AirportCode(origin)
-	leg.Arrival = AirportCode(destination)
+	leg.Departure = AirportCode(departure)
+	leg.Arrival = AirportCode(arrival)
 
 	return nil
 }
@@ -49,4 +41,10 @@ func (leg *FlightLeg) MarshalJSON() ([]byte, error) {
 		string(leg.Departure),
 		string(leg.Arrival),
 	})
+}
+
+type FlightPath struct {
+	Origin      AirportCode `json:"origin"`
+	Destination AirportCode `json:"destination"`
+	Legs        []FlightLeg `json:"legs"`
 }

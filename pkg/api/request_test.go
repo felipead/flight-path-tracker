@@ -112,7 +112,7 @@ func TestUnmarshalCalculateFlightPathRequest_InvalidFlight_OriginCodeIsNotAStrin
 }`
 	var request CalculateFlightPathRequest
 	err := json.Unmarshal([]byte(payload), &request)
-	assert.EqualError(t, err, "unable to unmarshal flight leg: origin code is not a string")
+	assert.EqualError(t, err, "unable to unmarshal flight leg: departure code is not a string")
 }
 
 func TestUnmarshalCalculateFlightPathRequest_InvalidFlight_DestinationCodeIsNotAString(t *testing.T) {
@@ -126,5 +126,5 @@ func TestUnmarshalCalculateFlightPathRequest_InvalidFlight_DestinationCodeIsNotA
 }`
 	var request CalculateFlightPathRequest
 	err := json.Unmarshal([]byte(payload), &request)
-	assert.EqualError(t, err, "unable to unmarshal flight leg: destination code is not a string")
+	assert.EqualError(t, err, "unable to unmarshal flight leg: arrival code is not a string")
 }

@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/felipead/flight-path-tracker/pkg/domain"
-	"github.com/felipead/flight-path-tracker/pkg/model"
 )
 
 func CalculateFlightPath(c *gin.Context) {
@@ -22,10 +21,7 @@ func CalculateFlightPath(c *gin.Context) {
 	}
 
 	response := CalculateFlightPathResponse{
-		FlightStartEnd: &model.FlightLeg{
-			Departure: flightPath.Origin,
-			Arrival:   flightPath.Destination,
-		},
+		FlightPath: flightPath,
 	}
 
 	c.JSON(200, response)

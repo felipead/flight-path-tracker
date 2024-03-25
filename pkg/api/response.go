@@ -5,5 +5,5 @@ import (
 )
 
 type CalculateFlightPathResponse struct {
-	FlightStartEnd *model.FlightLeg `json:"flight_start_end"`
+	FlightPath *model.FlightPath `json:"flight_path"`
 }
